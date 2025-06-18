@@ -1,4 +1,4 @@
-const express = require ("express")
+const express = require("express")
 
 const app = express()
 const PORT = 5000
@@ -14,7 +14,27 @@ app.get("/", (req, res) => {
 })
 
 app.use((req, res) => {
-    
+    const apiKey = req.query.apiKey;
+    if (apiKey) {
+        next();
+    } else {
+        res.status(401).send("Unauthorized");
+    }
+})
+
+app.get("/users", (req, res) => {
+    res.status(200)
+    res.JSON([
+        {
+            "id": 1,
+            "name": "Yemi Olanrewaju",
+        },
+
+        {
+            "id": 2,
+            "name": "Oluwasegun Olaoluwa",
+        }
+    ])
 })
 
 app.listen(PORT, () => {
